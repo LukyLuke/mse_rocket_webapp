@@ -16,7 +16,7 @@ Point your browser to http://localhost:8000
 ## Insert a new user
 
 ```
-curl -X POST -H "Content-Type: application/json" --data '{"id": 1, "name": "Frank", "surname": "Nord"}' http://localhost:8000/user/insert
+curl -X POST -H "Content-Type: application/json" --data '{"name": "Frank", "surname": "Nord"}' http://localhost:8000/user/insert
 ```
 
 # Setup your Environment
