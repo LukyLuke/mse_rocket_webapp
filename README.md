@@ -36,6 +36,15 @@ $ cargo build
 $ cargo build --release
 ```
 
+## Using diesel ORM
+
+```
+$ cargo install diesel_cli --no-default-features --features sqlite
+$ $HOME/.cargo/bin/diesel migration run
+$ $HOME/.cargo/bin/diesel migration redo
+```
+
+
 ## Crosscompile
 
 Check the different targets here: https://rust-lang.github.io/rustup-components-history

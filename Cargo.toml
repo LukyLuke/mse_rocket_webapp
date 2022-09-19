@@ -7,6 +7,16 @@ authors = [ "Lukas (LukyLuke_ch) Zurschmiede <network-discover@ranta.ch>" ]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+
+# Web-Library
 rocket = { version = "0.4.11" }
+rocket_contrib = { version = "0.4.11" }
+serde = { version = "1.0", features = [ "derive" ] }
+
+# ORM
+diesel = { version = "2.0", features = [ "sqlite", "r2d2" ] }
+
+# Convenience
+dotenvy = { version = "0.15" }
 env_logger = { version = "0.9" }
 chrono = { version = "0.4.22" }
