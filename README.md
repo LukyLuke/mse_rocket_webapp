@@ -2,6 +2,8 @@
 
 MSE ITSecurity Webapp Project
 
+See (Documentation)[doc/README.md] for the different libraries and explanations.
+
 ## Run the app
 
 ```
