@@ -1,6 +1,8 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 #[macro_use] extern crate rocket;
 
+use rocket_contrib::templates::Template;
+
 mod routes;
 mod dto;
 mod schema;
@@ -12,8 +14,13 @@ fn not_found(req: &rocket::Request) -> String {
 }
 
 #[get("/")]
-fn root() -> &'static str {
-	"Hello World, how are you today?"
+fn root() -> Template {
+	let user = dto::User {
+		id: -1,
+		name: Some(String::from("Please")),
+		surname: Some(String::from("Login")),
+	};
+	Template::render("home", user)
 }
 
 fn main() {
@@ -25,5 +32,6 @@ fn main() {
 			routes::user_insert,
 			routes::user_get,
 		])
+		.attach(Template::fairing())
 		.launch();
 }
