@@ -31,7 +31,7 @@ Rocket has launched from http://localhost:8000
 * Just have the small binary in a Container and start it up.
 
 
-## CrossSite-Scription (XSS)
+## Cross Site Scripting (XSS)
 
 Provided you are using the builtin templates there is XSS protection.
 
@@ -58,7 +58,7 @@ have to implement it by hand.
 
 There is no automatic prevention for CSRF.
 
-### Prevent CSRF
+### Preventing CSRF
 
 Preventing CSRF is a matter of adding a server signed piece of information that
 is added for example when rendering a form template as an additional input
@@ -77,8 +77,6 @@ Using CSRF is possible with
 ```
 WARNING! The implementation is very simple for now and may not be ready for production.
 ```
-
-> TODO
 
 ## User Management
 
