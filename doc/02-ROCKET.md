@@ -33,19 +33,16 @@ Rocket has launched from http://localhost:8000
 
 ## CrossSite-Scription (XSS)
 
-There is no automatic prevention for XSS.
+Provided you are using the builtin templates there is XSS protection.
 
 ### Prevent XSS
 
 Rocket offers builtin template rendering that supports the popular handlebars
 or tera templating languages.
 
-TODO figure out if it does escaping or not, the next two paragraph below are
-referring to a different library that is NOT built into rocket.
-
-For template rendering we are using [handlebars](https://docs.rs/handlebars/latest/handlebars/) which by default escapes the
-characters `"&<>` using their HTML entities.
-[Handlebars Escaping](https://api.rocket.rs/master/rocket_dyn_templates/handlebars/index.html#escaping)
+For template rendering we are using the handlebars which by default escapes the
+characters `"&<>` using their HTML entities. [Handlebars
+Escaping](https://api.rocket.rs/master/rocket_dyn_templates/handlebars/index.html#escaping)
 
 This can further be improved by providing your own escaping function or you can
 shoot yourself in the foot by explicitly using the provided no_escape()
