@@ -37,13 +37,25 @@ There is no automatic prevention for XSS.
 
 ### Prevent XSS
 
-One way would be to implement a Content Security Policy (CSP) although Rocket
-does not natively support this meaning if you want to do it, you would have to
-implement it by hand.
+Rocket offers builtin template rendering that supports the popular handlebars
+or tera templating languages.
 
-> TODO
+TODO figure out if it does escaping or not, the next two paragraph below are
+referring to a different library that is NOT built into rocket.
 
-[Open Issue for native support](https://github.com/SergioBenitez/Rocket/issues/264)
+For template rendering we are using [handlebars](https://docs.rs/handlebars/latest/handlebars/) which by default escapes the
+characters `"&<>` using their HTML entities.
+[Handlebars Escaping](https://api.rocket.rs/master/rocket_dyn_templates/handlebars/index.html#escaping)
+
+This can further be improved by providing your own escaping function or you can
+shoot yourself in the foot by explicitly using the provided no_escape()
+function.
+
+Another way would be to implement a Content Security Policy (CSP) although
+Rocket does not natively support this meaning if you want to do it, you would
+have to implement it by hand.
+
+[Open Issue for native support of CSP](https://github.com/SergioBenitez/Rocket/issues/264)
 
 ## CrossSite Request Forgery (CSRF)
 
@@ -60,6 +72,14 @@ In Rocket this is not supported natively so you would need to do it yourself.
 Loads of foot guns here.
 
 [Open issue](https://github.com/SergioBenitez/Rocket/issues/14)
+
+Using CSRF is possible with
+[rocket_csrf](https://github.com/kotovalexarian/rocket_csrf) as a fairing
+(rocket term for middleware) although the project page shows this warning:
+
+```
+WARNING! The implementation is very simple for now and may not be ready for production.
+```
 
 > TODO
 
