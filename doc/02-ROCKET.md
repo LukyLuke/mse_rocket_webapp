@@ -37,8 +37,13 @@ There is no automatic prevention for XSS.
 
 ### Prevent XSS
 
+One way would be to implement a Content Security Policy (CSP) although Rocket
+does not natively support this meaning if you want to do it, you would have to
+implement it by hand.
+
 > TODO
 
+[Open Issue for native support](https://github.com/SergioBenitez/Rocket/issues/264)
 
 ## CrossSite Request Forgery (CSRF)
 
@@ -46,23 +51,43 @@ There is no automatic prevention for CSRF.
 
 ### Prevent CSRF
 
-> TODO
+Preventing CSRF is a matter of adding a server signed piece of information that
+is added for example when rendering a form template as an additional input
+field. Upon submission the server can check the validity of the CSRF token by
+verifying the signature.
 
+In Rocket this is not supported natively so you would need to do it yourself.
+Loads of foot guns here.
+
+[Open issue](https://github.com/SergioBenitez/Rocket/issues/14)
+
+> TODO
 
 ## User Management
 
-There is no User Management.
+There is no builtin User Management.
 
 ### How to do User Management
 
-> TODO
+Some other crates add support for this. There is a [long standing issue from
+2016](https://github.com/SergioBenitez/Rocket/issues/8) that discusses a
+builtin solution.
 
+Adding something like
+[rocket_auth](https://docs.rs/rocket_auth/latest/rocket_auth/) would work but
+it brings its own database handler which is not based on diesel but will rather
+write to a database itself.
+
+> TODO
 
 ## Session Management
 
-There is no Session Management.
+There is no Session Management built in Rocket although there are middlewares
+available to do just that.
+
+[rocket_auth](https://docs.rs/rocket_auth/latest/rocket_auth/) offers this
+functionality but uses its own database library that does not use diesel.
 
 ### How to do Session Management
 
 > TODO
-
