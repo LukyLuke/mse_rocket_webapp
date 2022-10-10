@@ -78,7 +78,7 @@ Using CSRF is possible with
 WARNING! The implementation is very simple for now and may not be ready for production.
 ```
 
-## User Management
+## User+Password Management
 
 There is no builtin User Management.
 
@@ -93,7 +93,11 @@ Adding something like
 it brings its own database handler which is not based on diesel but will rather
 write to a database itself.
 
-> TODO
+What we ended up doing is implementing the user management ourselves and
+hashing the passwords ourselves. We settled on
+[Bcrypt](https://github.com/Keats/rust-bcrypt) with a work factor of 12.
+Changing away from that is a lot of work since the existing passwords would
+need to be migrated as well.
 
 ## Session Management
 

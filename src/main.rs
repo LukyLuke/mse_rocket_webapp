@@ -23,9 +23,9 @@ pub struct CSRFRenderer {
 #[get("/")]
 fn root(csrf_token: CsrfToken) -> Template {
 	let authenticity_token: String = csrf_token.authenticity_token();
-    let token = CSRFRenderer {
-        csrf_token: authenticity_token,
-    };
+	let token = CSRFRenderer {
+		csrf_token: authenticity_token,
+	};
 	Template::render("home", token)
 }
 

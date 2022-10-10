@@ -44,17 +44,17 @@ pub fn login(csrf_token: CsrfToken, form: Form<LoginForm>) -> Flash<Redirect> {
 	if let Err(_) = csrf_token.verify(&form.csrf_token) {
 		return Flash::error(Redirect::to("/csrf-token-invalid"), "invalid authenticity token");
 	}
-    // search for user with email from form in database
+	// search for user with email from form in database
 	let user: Vec<dto::User> = users::table
 		.filter(users::email.eq(form.email.to_string()))
 		.limit(1)
 		.load(&mut get_connection())
 		.expect(format!("Unable to load user with email {}", form.email).as_str());
-    // check against stored password in database
-    let password_check_result = verify(form.password.to_string(), &user[0].password);
-    if ! password_check_result.unwrap() {
+	// check against stored password in database
+	let password_check_result = verify(form.password.to_string(), &user[0].password);
+	if ! password_check_result.unwrap() {
 		return Flash::error(Redirect::to("/password-invalid"), "invalid password");
-    }
+	}
 	Flash::success(
 		Redirect::to("/api/users"),
 		format!("Login succeeded: {:#?}", form.email),
@@ -63,7 +63,7 @@ pub fn login(csrf_token: CsrfToken, form: Form<LoginForm>) -> Flash<Redirect> {
 
 #[post("/signup", data = "<form>")]
 pub fn signup(csrf_token: CsrfToken, form: Form<SignupForm>) -> Redirect {
-    // check csrf_token is valid
+	// check csrf_token is valid
 	if let Err(_) = csrf_token.verify(&form.csrf_token) {
 		return Redirect::to("/csrf-token-invalid");
 	}
@@ -71,8 +71,8 @@ pub fn signup(csrf_token: CsrfToken, form: Form<SignupForm>) -> Redirect {
 	if form.password != form.password2 {
 		return Redirect::to("/error");
 	}
-    // Hash the password for storage
-    let password = hash(&form.password.to_string(), DEFAULT_COST);
+	// Hash the password for storage
+	let password = hash(&form.password.to_string(), DEFAULT_COST);
 
 	// build the struct from the form
 	let new_user = dto::NewUser {
