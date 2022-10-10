@@ -22,19 +22,29 @@
 </head>
 <body>
 	<div class="left-side">
-		<h1>This web app was built with RUST, rocket and diesel</h1>
-		<h2>Hello {{name}} {{surname}}</h2>
+		<h1>Please sign up:</h1>
 	</div>
 	<div class="login">
-		<form action="/api/login" method="post">
+		<form action="/api/signup" method="post">
 			<input type="hidden" id="csrf_token" name="csrf_token" value="{{csrf_token}}" />
-			<label for="email">Login:</label>
+			<label for="email">E-Mail:</label>
 			<input type="text" id="email" name="email" placeholder="E-Mail" />
+			<br/>
+			<label for="password">Password:</label>
 			<input type="password" id="password" name="password"  placeholder="Password" />
-			<button type="submit">Login</button>
+			<br/>
+			<label for="password">Password repeated:</label>
+			<input type="password" id="password2" name="password2"  placeholder="Repeat Password" />
+			<br/>
+			<label for="name">First Name:</label>
+			<input type="text" id="firstname" name="firstname"  placeholder="John" />
+			<br/>
+			<label for="name">Last Name:</label>
+			<input type="text" id="lastname" name="lastname"  placeholder="Doe" />
+			<br/>
+			<button type="submit">Signup</button>
 		</form>
 	</div>
-        <a href="/signup">Signup</a>
 	<div class="search">
 		<form action="/api/search" method="post">
 			<label for="search">Search:</label> <input type="text" id="search" name="search" placeholder="search" />

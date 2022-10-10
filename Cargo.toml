@@ -16,6 +16,9 @@ serde = { version = "1.0", features = [ "derive" ] }
 # CSRF protection
 rocket_csrf = { version = "0.3.0" }
 
+# Password hashing
+bcrypt = { version = "0.13" }
+
 # ORM
 diesel = { version = "2.0", features = [ "sqlite", "r2d2" ] }
 

@@ -16,30 +16,38 @@ fn not_found(req: &rocket::Request) -> String {
 }
 
 #[derive(Serialize)]
-pub struct Renderer {
-	pub xss_test: String,
+pub struct CSRFRenderer {
 	pub csrf_token: String,
 }
 
 #[get("/")]
 fn root(csrf_token: CsrfToken) -> Template {
 	let authenticity_token: String = csrf_token.authenticity_token();
-	let test = Renderer{
-		xss_test: String::from("</h1><script>alert(\"No...\");</script>"),
+    let token = CSRFRenderer {
+        csrf_token: authenticity_token,
+    };
+	Template::render("home", token)
+}
+
+#[get("/signup")]
+fn signup(csrf_token: CsrfToken) -> Template {
+	let authenticity_token: String = csrf_token.authenticity_token();
+	let test = CSRFRenderer{
 		csrf_token: authenticity_token,
 	};
-	Template::render("home", test)
+	Template::render("signup", test)
 }
 
 fn main() {
 	rocket::ignite()
 		.register(catchers![not_found])
-		.mount("/", routes![ root ])
+		.mount("/", routes![ root, signup])
 		.mount("/api", routes![
 			routes::users,
 			routes::user_insert,
 			routes::user_get,
 			routes::login,
+			routes::signup,
 		])
 		.attach(rocket_csrf::Fairing::default())
 		.attach(Template::fairing())

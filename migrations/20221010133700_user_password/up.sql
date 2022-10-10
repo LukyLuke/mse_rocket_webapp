@@ -1,0 +1,2 @@
+ALTER TABLE users add email NVARCHAR(250) NOT NULL;
+ALTER TABLE users add password NVARCHAR(250) NOT NULL;
