@@ -2,6 +2,7 @@
 #[macro_use] extern crate rocket;
 
 use rocket_contrib::templates::Template;
+use serde::{Serialize};
 
 mod routes;
 mod dto;
@@ -13,14 +14,17 @@ fn not_found(req: &rocket::Request) -> String {
 	format!("Oh no, something went wrong! Did you really mean '{}'?", req.uri())
 }
 
+#[derive(Serialize)]
+pub struct Renderer {
+	pub xss_test: String,
+}
+
 #[get("/")]
 fn root() -> Template {
-	let user = dto::User {
-		id: -1,
-		name: Some(String::from("Please")),
-		surname: Some(String::from("Login")),
+	let test = Renderer{
+		xss_test: String::from("</h1><script>alert(\"No...\");</script>"),
 	};
-	Template::render("home", user)
+	Template::render("home", test)
 }
 
 fn main() {
