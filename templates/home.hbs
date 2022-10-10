@@ -28,7 +28,10 @@
 	</div>
 	<div class="login">
 		<form action="/api/login" method="post">
-			<label for="username">Login:</label> <input type="text" id="username" name="username" placeholder="username" /> <input type="password" id="password" name="password"  placeholder="password" />
+			<input type="hidden" id="csrf_token" name="csrf_token" value="{{csrf_token}}" />
+			<label for="username">Login:</label>
+			<input type="text" id="username" name="username" placeholder="username" />
+			<input type="password" id="password" name="password"  placeholder="password" />
 			<button type="submit">Login</button>
 		</form>
 	</div>
