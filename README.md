@@ -62,7 +62,7 @@ environment:
 
 ```toml
 [production]
-secret_key = <secret key>
+secret_key = "<secret key>"
 ```
 
 You may generate this by using openssl: `openssl rand -base64 32`
