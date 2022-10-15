@@ -102,11 +102,20 @@ need to be migrated as well.
 ## Session Management
 
 There is no Session Management built in Rocket although there are middlewares
-available to do just that.
+available to do that.
 
 [rocket_auth](https://docs.rs/rocket_auth/latest/rocket_auth/) offers this
 functionality but uses its own database library that does not use diesel.
 
+The builtin mechanism that tries to replace Sessions are encrypted cookies. So
+any value you would want to save in a session you just write into a cookie that
+is encrypted. Please note that it is imperative that you set the secret_key
+config option otherwise the key used for encrypting the cookies is regenereated
+on restart of the application.
+
 ### How to do Session Management
 
-> TODO
+There is not really a session concept built in. You can implement it yourself
+or use the encrypted cookies.
+
+See https://api.rocket.rs/v0.4/rocket/http/enum.Cookies.html

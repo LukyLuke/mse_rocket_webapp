@@ -51,6 +51,21 @@ $ $HOME/.cargo/bin/diesel migration run
 $ $HOME/.cargo/bin/diesel migration redo
 ```
 
+## Configure the application
+
+Create a file called `Rocket.toml` with contents according to the documentation
+such as secret keys. https://rocket.rs/v0.4/guide/configuration/
+
+For encrypted cookies to be persistant (and the secret key not regenerated on
+application start) you need to set the secret_key in the respective
+environment:
+
+```toml
+[production]
+secret_key = <secret key>
+```
+
+You may generate this by using openssl: `openssl rand -base64 32`
 
 ## Crosscompile
 
