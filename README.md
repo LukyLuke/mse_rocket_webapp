@@ -61,7 +61,7 @@ application start) you need to set the secret_key in the respective
 environment:
 
 ```toml
-[production]
+[development]
 secret_key = "<secret key>"
 ```
 

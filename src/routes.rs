@@ -2,6 +2,7 @@ use diesel::prelude::*;
 
 use rocket::request::{Form, FromForm};
 use rocket_csrf::CsrfToken;
+use rocket::http::{Cookie, Cookies};
 use rocket::response::{Flash, Redirect};
 
 use rocket_contrib::json::Json;
@@ -13,7 +14,9 @@ use crate::schema::*;
 use bcrypt::{DEFAULT_COST, hash, verify};
 
 #[get("/users")]
-pub fn users() -> Json<Vec<dto::User>> {
+pub fn users(mut cookies: Cookies) -> Json<Vec<dto::User>> {
+	let cookie = cookies.get_private("user");
+	assert_eq!(cookie.unwrap().value(), "CHANGEME");
 	let users: Vec<dto::User> = users::table
 		.select(users::all_columns)
 		.load::<dto::User>(&mut get_connection())
@@ -40,7 +43,7 @@ pub struct SignupForm {
 }
 
 #[post("/login", data = "<form>")]
-pub fn login(csrf_token: CsrfToken, form: Form<LoginForm>) -> Flash<Redirect> {
+pub fn login(csrf_token: CsrfToken, form: Form<LoginForm>, mut cookies: Cookies) -> Flash<Redirect> {
 	if let Err(_) = csrf_token.verify(&form.csrf_token) {
 		return Flash::error(Redirect::to("/csrf-token-invalid"), "invalid authenticity token");
 	}
@@ -55,6 +58,7 @@ pub fn login(csrf_token: CsrfToken, form: Form<LoginForm>) -> Flash<Redirect> {
 	if ! password_check_result.unwrap() {
 		return Flash::error(Redirect::to("/password-invalid"), "invalid password");
 	}
+	cookies.add_private(Cookie::new("user", "CHANGEME"));
 	Flash::success(
 		Redirect::to("/api/users"),
 		format!("Login succeeded: {:#?}", form.email),

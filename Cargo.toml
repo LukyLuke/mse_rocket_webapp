@@ -9,7 +9,7 @@ authors = [ "Lukas (LukyLuke_ch) Zurschmiede <network-discover@ranta.ch>" ]
 [dependencies]
 
 # Web-Library
-rocket = { version = "0.4.11" }
+rocket = { version = "0.4.11", features = ["private-cookies"]}
 rocket_contrib = { version = "0.4.11", features = [ "handlebars_templates", "tera_templates" ] }
 serde = { version = "1.0", features = [ "derive" ] }
 
